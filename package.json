@@ -6,8 +6,7 @@
     "dev": "rspack dev",
     "build": "rspack build",
     "preview": "rspack preview",
-    "lint": "biome lint",
-    "lint-fix": "biome lint --write ./src"
+    "lint": "biome check ./src"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.11",

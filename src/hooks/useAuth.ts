@@ -1,9 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from '@tanstack/react-router';
-import { fetchAuthSession } from 'aws-amplify/auth';
-import { authService, type SignInCredentials } from '../services/authService';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "@tanstack/react-router";
+import { fetchAuthSession } from "aws-amplify/auth";
+import { authService, type SignInCredentials } from "../services/authService";
 
-const AUTH_QUERY_KEY = ['auth', 'user'];
+const AUTH_QUERY_KEY = ["auth", "user"];
 
 export function useAuth() {
   const queryClient = useQueryClient();
@@ -20,7 +20,7 @@ export function useAuth() {
 
         return authService.getCurrentUser();
       } catch (error) {
-        console.error('Error in auth query:', error);
+        console.error("Error in auth query:", error);
         return null;
       }
     },
@@ -32,7 +32,7 @@ export function useAuth() {
     mutationFn: authService.signIn,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
-      router.navigate({ to: '/dashboard' });
+      router.navigate({ to: "/dashboard" });
     },
   });
 
@@ -40,7 +40,7 @@ export function useAuth() {
     mutationFn: authService.signOut,
     onSuccess: () => {
       queryClient.setQueryData(AUTH_QUERY_KEY, null);
-      router.navigate({ to: '/' });
+      router.navigate({ to: "/" });
     },
   });
 

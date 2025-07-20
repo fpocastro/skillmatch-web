@@ -32,7 +32,7 @@ export interface SignInResponse extends AuthTokens {
   user: AuthUser;
 }
 
-import { signIn, signOut, fetchAuthSession } from "aws-amplify/auth";
+import { fetchAuthSession, signIn, signOut } from "aws-amplify/auth";
 
 const baseUrl = process.env.API_URL || "http://localhost:3000/api/v1";
 

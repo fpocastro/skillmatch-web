@@ -18,13 +18,13 @@
   "javascript": {
     "formatter": {
       "semicolons": "always",
+      "quoteStyle": "double",
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
       "trailingCommas": "es5",
       "arrowParentheses": "always",
       "bracketSpacing": true,
       "bracketSameLine": false,
-      "quoteStyle": "single",
       "attributePosition": "auto"
     }
   },

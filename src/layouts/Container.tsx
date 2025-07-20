@@ -1,6 +1,6 @@
-import { Link } from '@tanstack/react-router';
-import { DropdownMenu } from 'radix-ui';
-import { useAuth } from '../hooks/useAuth';
+import { Link } from "@tanstack/react-router";
+import { DropdownMenu } from "radix-ui";
+import { useAuth } from "../hooks/useAuth";
 
 interface ContainerRootProps {
   children: React.ReactNode;
@@ -10,22 +10,22 @@ function Root({ children }: ContainerRootProps) {
   return <div className="flex flex-col min-h-screen">{children}</div>;
 }
 
-interface ContainerContentProps extends React.ComponentProps<'div'> {
+interface ContainerContentProps extends React.ComponentProps<"div"> {
   children: React.ReactNode;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   className?: string;
 }
 
 function Content({
   children,
-  size = 'md',
-  className = '',
+  size = "md",
+  className = "",
   ...rest
 }: ContainerContentProps) {
   const sizeClasses = {
-    sm: 'max-w-2xl',
-    md: 'max-w-4xl',
-    lg: 'max-w-6xl',
+    sm: "max-w-2xl",
+    md: "max-w-4xl",
+    lg: "max-w-6xl",
   };
 
   return (
@@ -38,7 +38,7 @@ function Content({
   );
 }
 
-interface ContainerNavbarProps extends React.ComponentProps<'nav'> {}
+interface ContainerNavbarProps extends React.ComponentProps<"nav"> {}
 
 function Navbar({ ...rest }: ContainerNavbarProps) {
   const { isAuthenticated, user, signOut, isLogoutPending } = useAuth();
