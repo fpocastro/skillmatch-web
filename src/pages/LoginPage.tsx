@@ -2,6 +2,7 @@ import { useForm } from "@tanstack/react-form";
 import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { z } from "zod";
+import { Input } from "../components/Input";
 import { useAuth } from "../hooks/useAuth";
 import { Container } from "../layouts/Container";
 
@@ -23,7 +24,7 @@ export default function LoginPage() {
       onSubmit: loginSchema,
     },
     onSubmit: async ({ value }) => {
-      await signIn(value);
+      signIn(value);
     },
   });
 
@@ -38,9 +39,9 @@ export default function LoginPage() {
       <Container.Content className="justify-center">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <Link to="/" className="flex justify-center">
-              <h1 className="text-3xl font-bold text-green-600">SkillMatch</h1>
-            </Link>
+            <h1 className="text-3xl text-center font-bold text-green-600">
+              SkillMatch
+            </h1>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Sign in to your account
             </h2>
@@ -54,7 +55,6 @@ export default function LoginPage() {
             }}
           >
             <div className="space-y-4">
-              {/* Email */}
               <form.Field name="email">
                 {(field) => (
                   <div>
@@ -64,14 +64,15 @@ export default function LoginPage() {
                     >
                       Email address
                     </label>
-                    <input
-                      id="email"
+                    <Input
+                      id={field.name}
                       name="email"
                       type="email"
                       value={field.state.value}
+                      valid={field.state.meta.isValid}
+                      disabled={isLoginPending}
                       onChange={(e) => field.handleChange(e.target.value)}
                       onBlur={field.handleBlur}
-                      className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
                       placeholder="Enter your email"
                     />
                     {!field.state.meta.isValid && (
@@ -83,7 +84,6 @@ export default function LoginPage() {
                 )}
               </form.Field>
 
-              {/* Password */}
               <form.Field name="password">
                 {(field) => (
                   <div>
@@ -93,14 +93,15 @@ export default function LoginPage() {
                     >
                       Password
                     </label>
-                    <input
+                    <Input
                       id="password"
                       name="password"
                       type="password"
                       value={field.state.value}
+                      valid={field.state.meta.isValid}
+                      disabled={isLoginPending}
                       onChange={(e) => field.handleChange(e.target.value)}
                       onBlur={field.handleBlur}
-                      className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
                       placeholder="Enter your password"
                     />
                     {!field.state.meta.isValid && (
