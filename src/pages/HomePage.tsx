@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Button } from "../components/Button";
 import { useAuth } from "../hooks/useAuth";
 import { Container } from "../layouts/Container";
 
@@ -20,12 +21,11 @@ export default function HomePage() {
                 enjoy the beautiful game with like-minded soccer enthusiasts.
               </p>
               <div className="mt-10">
-                <Link
-                  to={isAuthenticated ? "/dashboard" : "/login"}
-                  className="bg-green-600 text-white px-8 py-3 rounded-md text-lg font-medium hover:bg-green-700 transition-colors"
-                >
-                  {isAuthenticated ? "Go to Dashboard" : "Get Started"}
-                </Link>
+                <Button asChild>
+                  <Link to={isAuthenticated ? "/dashboard" : "/login"}>
+                    {isAuthenticated ? "Go to Dashboard" : "Get Started"}
+                  </Link>
+                </Button>
               </div>
             </div>
           </main>

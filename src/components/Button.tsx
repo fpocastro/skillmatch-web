@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: <can be any type of element> */
+/** biome-ignore-all lint/suspicious/noExplicitAny: <polymorphic element> */
 import type { ComponentPropsWithoutRef, ReactElement, ReactNode } from "react";
 import { cloneElement, isValidElement } from "react";
 import { Spinner } from "./Spinner";
@@ -16,40 +16,42 @@ export function Button({
   className = "",
   ...props
 }: ButtonProps) {
-  const spinnerDisplay = loading ? "inline-flex" : "hidden";
-  const childrenVisibility = loading ? "invisible contents" : "";
-
   const commonClasses = `
     relative inline-flex h-10 px-4 min-w-10 items-center justify-center border border-transparent text-sm font-medium rounded-sm text-white bg-green-600 cursor-pointer
     transition-all duration-200
     hover:bg-green-700 
-    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500
     disabled:opacity-50 disabled:cursor-not-allowed
     ${className}
   `;
 
-  const content = (
-    <>
-      <div
-        className={`${spinnerDisplay} absolute justify-center items-center start-[50%] top-2/4 translate-[-50%]`}
-      >
-        <Spinner />
-      </div>
-      <span className={childrenVisibility}>{children}</span>
-    </>
+  const LoadingSpinner = () => (
+    <div className="absolute flex justify-center items-center inset-0">
+      <Spinner />
+    </div>
   );
 
   if (asChild && isValidElement(children)) {
+    const childrenProps = children.props as any;
+
     return cloneElement(children as ReactElement<any>, {
       ...props,
-      className: `${commonClasses} ${(children.props as any)?.className ?? ""}`,
-      children: content,
+      className: `${commonClasses} ${childrenProps.className ?? ""}`,
+      children: loading ? (
+        <>
+          <LoadingSpinner />
+          <span className="invisible">{childrenProps.children}</span>
+        </>
+      ) : (
+        childrenProps.children
+      ),
     });
   }
 
   return (
     <button className={commonClasses} disabled={loading} {...props}>
-      {content}
+      {loading && <LoadingSpinner />}
+      <span className={loading ? "invisible" : ""}>{children}</span>
     </button>
   );
 }
