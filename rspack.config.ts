@@ -1,12 +1,13 @@
 import { defineConfig } from "@rspack/cli";
 import { rspack } from "@rspack/core";
 import { ReactRefreshRspackPlugin } from "@rspack/plugin-react-refresh";
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
+import { RsdoctorRspackPlugin } from "@rsdoctor/rspack-plugin";
 
-// Load environment variables from .env file
 dotenv.config();
 
 const isDev = process.env.NODE_ENV === "development";
+const isRsdoctorActive = process.env.RSDOCTOR === "true";
 
 const targets = ["last 2 versions", "> 0.2%", "not dead", "Firefox ESR"];
 
@@ -64,11 +65,16 @@ export default defineConfig({
     }),
     isDev ? new ReactRefreshRspackPlugin() : null,
     new rspack.DefinePlugin({
-      'process.env.COGNITO_USER_POOL_ID': JSON.stringify(process.env.COGNITO_USER_POOL_ID),
-      'process.env.COGNITO_CLIENT_ID': JSON.stringify(process.env.COGNITO_CLIENT_ID),
-      'process.env.COGNITO_REGION': JSON.stringify(process.env.COGNITO_REGION),
-      'process.env.API_URL': JSON.stringify(process.env.API_URL),
+      "process.env.COGNITO_USER_POOL_ID": JSON.stringify(
+        process.env.COGNITO_USER_POOL_ID
+      ),
+      "process.env.COGNITO_CLIENT_ID": JSON.stringify(
+        process.env.COGNITO_CLIENT_ID
+      ),
+      "process.env.COGNITO_REGION": JSON.stringify(process.env.COGNITO_REGION),
+      "process.env.API_URL": JSON.stringify(process.env.API_URL),
     }),
+    isDev && isRsdoctorActive ? new RsdoctorRspackPlugin({}) : null,
   ].filter(Boolean),
   optimization: {
     minimizer: [

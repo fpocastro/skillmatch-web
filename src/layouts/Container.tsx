@@ -1,13 +1,17 @@
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Link } from "@tanstack/react-router";
-import { DropdownMenu } from "radix-ui";
 import { useAuth } from "../hooks/useAuth";
 
-interface ContainerRootProps {
+interface ContainerRootProps extends React.ComponentProps<"div"> {
   children: React.ReactNode;
 }
 
-function Root({ children }: ContainerRootProps) {
-  return <div className="flex flex-col min-h-screen">{children}</div>;
+function Root({ children, ...rest }: ContainerRootProps) {
+  return (
+    <div className="flex flex-col min-h-screen" {...rest}>
+      {children}
+    </div>
+  );
 }
 
 interface ContainerContentProps extends React.ComponentProps<"div"> {
