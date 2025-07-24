@@ -2,6 +2,7 @@ import { useForm } from "@tanstack/react-form";
 import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { z } from "zod";
+import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { useAuth } from "../hooks/useAuth";
 import { Container } from "../layouts/Container";
@@ -115,13 +116,14 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <button
+              <Button
                 type="submit"
                 disabled={isLoginPending || !form.state.canSubmit}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                loading={isLoginPending}
+                className="w-full"
               >
-                {isLoginPending ? "Signing in..." : "Sign in"}
-              </button>
+                Sign in
+              </Button>
             </div>
 
             {loginError && (
