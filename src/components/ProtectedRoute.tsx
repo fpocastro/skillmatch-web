@@ -1,5 +1,7 @@
 import { Navigate } from "@tanstack/react-router";
 import { useAuth } from "../hooks/useAuth";
+import { Container } from "../layouts/Container";
+import { Spinner } from "./Spinner";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -10,9 +12,11 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-lg">Loading...</div>
-      </div>
+      <Container.Root>
+        <Container.Content className="justify-center">
+          <Spinner className="text-green-500" />
+        </Container.Content>
+      </Container.Root>
     );
   }
 
