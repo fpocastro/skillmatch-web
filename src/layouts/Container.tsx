@@ -1,5 +1,6 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Link } from "@tanstack/react-router";
+import { Button } from "../components/Button";
 import { useAuth } from "../hooks/useAuth";
 
 interface ContainerRootProps extends React.ComponentProps<"div"> {
@@ -49,12 +50,9 @@ function Navbar({ ...rest }: ContainerNavbarProps) {
 
   function UnauthenticatedControls() {
     return (
-      <Link
-        to="/login"
-        className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
-      >
-        Login
-      </Link>
+      <Button asChild>
+        <Link to="/login">Login</Link>
+      </Button>
     );
   }
 
