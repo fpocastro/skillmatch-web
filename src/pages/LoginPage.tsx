@@ -3,6 +3,7 @@ import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { z } from "zod";
 import { Button } from "../components/Button";
+import { Field } from "../components/Field";
 import { Input } from "../components/Input";
 import { useAuth } from "../hooks/useAuth";
 import { Container } from "../layouts/Container";
@@ -58,30 +59,23 @@ export default function LoginPage() {
             <div className="space-y-4">
               <form.Field name="email">
                 {(field) => (
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Email address
-                    </label>
-                    <Input
-                      id={field.name}
-                      name="email"
+                  <Field.Root
+                    id="email"
+                    invalid={!field.state.meta.isValid}
+                    disabled={isLoginPending}
+                  >
+                    <Field.Label>Email address</Field.Label>
+                    <Field.Input
                       type="email"
+                      placeholder="Enter your email"
                       value={field.state.value}
-                      valid={field.state.meta.isValid}
-                      disabled={isLoginPending}
                       onChange={(e) => field.handleChange(e.target.value)}
                       onBlur={field.handleBlur}
-                      placeholder="Enter your email"
                     />
-                    {!field.state.meta.isValid && (
-                      <p className="text-red-600 text-sm">
-                        {field.state.meta.errors[0]?.message}
-                      </p>
-                    )}
-                  </div>
+                    <Field.ErrorMessage>
+                      {field.state.meta.errors[0]?.message}
+                    </Field.ErrorMessage>
+                  </Field.Root>
                 )}
               </form.Field>
 
@@ -99,7 +93,7 @@ export default function LoginPage() {
                       name="password"
                       type="password"
                       value={field.state.value}
-                      valid={field.state.meta.isValid}
+                      invalid={!field.state.meta.isValid}
                       disabled={isLoginPending}
                       onChange={(e) => field.handleChange(e.target.value)}
                       onBlur={field.handleBlur}
