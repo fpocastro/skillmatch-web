@@ -6,10 +6,10 @@ const indexRoute = createRoute({
   path: "/",
 }).lazy(() => import("./routes/index").then((d) => d.Route));
 
-const loginRoute = createRoute({
+const signInRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "login",
-}).lazy(() => import("./routes/login").then((d) => d.Route));
+  path: "signin",
+}).lazy(() => import("./routes/signin").then((d) => d.Route));
 
 const dashboardRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -18,7 +18,7 @@ const dashboardRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
-  loginRoute,
+  signInRoute,
   dashboardRoute,
 ]);
 

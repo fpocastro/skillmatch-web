@@ -22,7 +22,7 @@ export default function HomePage() {
               </p>
               <div className="mt-10">
                 <Button asChild>
-                  <Link to={isAuthenticated ? "/dashboard" : "/login"}>
+                  <Link to={isAuthenticated ? "/dashboard" : "/signin"}>
                     {isAuthenticated ? "Go to Dashboard" : "Get Started"}
                   </Link>
                 </Button>

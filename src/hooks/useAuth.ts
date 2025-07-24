@@ -51,8 +51,8 @@ export function useAuth() {
     signIn: (credentials: SignInCredentials) =>
       signInMutation.mutate(credentials),
     signOut: () => signOutMutation.mutate(),
-    isLoginPending: signInMutation.isPending,
+    isSignInPending: signInMutation.isPending,
     isLogoutPending: signOutMutation.isPending,
-    loginError: signInMutation.error,
+    signInError: signInMutation.error,
   };
 }

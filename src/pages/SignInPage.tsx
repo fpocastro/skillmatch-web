@@ -8,13 +8,13 @@ import { Input } from "../components/Input";
 import { useAuth } from "../hooks/useAuth";
 import { Container } from "../layouts/Container";
 
-const loginSchema = z.object({
+const signInSchema = z.object({
   email: z.email("Invalid email address"),
   password: z.string().min(1, "Password is required"),
 });
 
-export default function LoginPage() {
-  const { signIn, isLoginPending, loginError, isAuthenticated } = useAuth();
+export default function SignInPage() {
+  const { signIn, isSignInPending, signInError, isAuthenticated } = useAuth();
   const router = useRouter();
 
   const form = useForm({
@@ -23,7 +23,7 @@ export default function LoginPage() {
       password: "",
     },
     validators: {
-      onSubmit: loginSchema,
+      onSubmit: signInSchema,
     },
     onSubmit: async ({ value }) => {
       signIn(value);
@@ -62,7 +62,7 @@ export default function LoginPage() {
                   <Field.Root
                     id="email"
                     invalid={!field.state.meta.isValid}
-                    disabled={isLoginPending}
+                    disabled={isSignInPending}
                   >
                     <Field.Label>Email address</Field.Label>
                     <Field.Input
@@ -94,7 +94,7 @@ export default function LoginPage() {
                       type="password"
                       value={field.state.value}
                       invalid={!field.state.meta.isValid}
-                      disabled={isLoginPending}
+                      disabled={isSignInPending}
                       onChange={(e) => field.handleChange(e.target.value)}
                       onBlur={field.handleBlur}
                       placeholder="Enter your password"
@@ -112,17 +112,17 @@ export default function LoginPage() {
             <div>
               <Button
                 type="submit"
-                disabled={isLoginPending || !form.state.canSubmit}
-                loading={isLoginPending}
+                disabled={isSignInPending || !form.state.canSubmit}
+                loading={isSignInPending}
                 className="w-full"
               >
                 Sign in
               </Button>
             </div>
 
-            {loginError && (
+            {signInError && (
               <div className="text-red-600 text-sm text-center">
-                {loginError.message || "Login failed"}
+                {signInError.message || "Sign in failed"}
               </div>
             )}
 

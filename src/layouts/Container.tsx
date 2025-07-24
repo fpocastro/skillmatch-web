@@ -51,7 +51,7 @@ function Navbar({ ...rest }: ContainerNavbarProps) {
   function UnauthenticatedControls() {
     return (
       <Button asChild>
-        <Link to="/login">Login</Link>
+        <Link to="/signin">Sign In</Link>
       </Button>
     );
   }
