@@ -32,9 +32,8 @@ export interface SignInResponse extends AuthTokens {
   user: AuthUser;
 }
 
-import { fetchAuthSession, signIn, signOut } from "aws-amplify/auth";
-
-const baseUrl = process.env.API_URL || "http://localhost:3000/api/v1";
+import { signIn, signOut } from "aws-amplify/auth";
+import { api } from "./api";
 
 class AuthService {
   signIn = async (credentials: SignInCredentials): Promise<AuthUser> => {
@@ -47,30 +46,11 @@ class AuthService {
   };
 
   getCurrentUser = async (): Promise<AuthUser> => {
-    const response = await fetch(`${baseUrl}/auth/me`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${await this.getAccessToken()}`,
-      },
-    });
-
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({}));
-      throw new Error(error.message || "Failed to retrieve user data");
-    }
-
-    const data: AuthUser = await response.json();
-    return data;
+    return api.get<AuthUser>("/auth/me");
   };
 
   signOut = async () => {
     await signOut();
-  };
-
-  getAccessToken = async (): Promise<string | null> => {
-    const { tokens } = await fetchAuthSession();
-    return tokens?.accessToken.toString() || null;
   };
 }
 
