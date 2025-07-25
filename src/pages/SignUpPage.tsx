@@ -8,25 +8,29 @@ import { Input } from "../components/Input";
 import { useAuth } from "../hooks/useAuth";
 import { Container } from "../layouts/Container";
 
-const signInSchema = z.object({
+const signUpSchema = z.object({
   email: z.email("Invalid email address"),
-  password: z.string().min(1, "Password is required"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
 });
 
-export default function SignInPage() {
-  const { signIn, isSignInPending, signInError, isAuthenticated } = useAuth();
+export default function SignUpPage() {
+  const { signUp, isSignUpPending, signUpError, isAuthenticated } = useAuth();
   const router = useRouter();
 
   const form = useForm({
     defaultValues: {
       email: "",
       password: "",
+      firstName: "",
+      lastName: "",
     },
     validators: {
-      onSubmit: signInSchema,
+      onSubmit: signUpSchema,
     },
     onSubmit: async ({ value }) => {
-      signIn(value);
+      signUp(value);
     },
   });
 
@@ -45,7 +49,7 @@ export default function SignInPage() {
               SkillMatch
             </h1>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Sign in to your account
+              Create your account
             </h2>
           </div>
 
@@ -57,12 +61,56 @@ export default function SignInPage() {
             }}
           >
             <div className="space-y-4">
+              <form.Field name="firstName">
+                {(field) => (
+                  <Field.Root
+                    id="firstName"
+                    invalid={!field.state.meta.isValid}
+                    disabled={isSignUpPending}
+                  >
+                    <Field.Label>First Name</Field.Label>
+                    <Field.Input
+                      type="text"
+                      placeholder="Enter your first name"
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      onBlur={field.handleBlur}
+                    />
+                    <Field.ErrorMessage>
+                      {field.state.meta.errors[0]?.message}
+                    </Field.ErrorMessage>
+                  </Field.Root>
+                )}
+              </form.Field>
+
+              <form.Field name="lastName">
+                {(field) => (
+                  <Field.Root
+                    id="lastName"
+                    invalid={!field.state.meta.isValid}
+                    disabled={isSignUpPending}
+                  >
+                    <Field.Label>Last Name</Field.Label>
+                    <Field.Input
+                      type="text"
+                      placeholder="Enter your last name"
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      onBlur={field.handleBlur}
+                    />
+                    <Field.ErrorMessage>
+                      {field.state.meta.errors[0]?.message}
+                    </Field.ErrorMessage>
+                  </Field.Root>
+                )}
+              </form.Field>
+
               <form.Field name="email">
                 {(field) => (
                   <Field.Root
                     id="email"
                     invalid={!field.state.meta.isValid}
-                    disabled={isSignInPending}
+                    disabled={isSignUpPending}
                   >
                     <Field.Label>Email address</Field.Label>
                     <Field.Input
@@ -94,7 +142,7 @@ export default function SignInPage() {
                       type="password"
                       value={field.state.value}
                       invalid={!field.state.meta.isValid}
-                      disabled={isSignInPending}
+                      disabled={isSignUpPending}
                       onChange={(e) => field.handleChange(e.target.value)}
                       onBlur={field.handleBlur}
                       placeholder="Enter your password"
@@ -112,26 +160,26 @@ export default function SignInPage() {
             <div>
               <Button
                 type="submit"
-                disabled={isSignInPending || !form.state.canSubmit}
-                loading={isSignInPending}
+                disabled={isSignUpPending || !form.state.canSubmit}
+                loading={isSignUpPending}
                 className="w-full"
               >
-                Sign in
+                Sign up
               </Button>
             </div>
 
-            {signInError && (
+            {signUpError && (
               <div className="text-red-600 text-sm text-center">
-                {signInError.message || "Sign in failed"}
+                {signUpError.message || "Sign up failed"}
               </div>
             )}
 
             <div className="text-center space-y-2">
               <Link
-                to="/signup"
+                to="/signin"
                 className="text-green-600 hover:text-green-500 text-sm"
               >
-                Don't have an account? Sign up
+                Already have an account? Sign in
               </Link>
               <br />
               <Link

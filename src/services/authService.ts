@@ -3,6 +3,13 @@ export interface SignInCredentials {
   password: string;
 }
 
+export interface SignUpCredentials {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
+
 export interface UserRole {
   id: string;
   name: string;
@@ -47,6 +54,10 @@ class AuthService {
 
   getCurrentUser = async (): Promise<AuthUser> => {
     return api.get<AuthUser>("/auth/me");
+  };
+
+  signUp = async (credentials: SignUpCredentials): Promise<void> => {
+    await api.post("/auth/signup/email", credentials);
   };
 
   signOut = async () => {

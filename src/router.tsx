@@ -11,6 +11,11 @@ const signInRoute = createRoute({
   path: "signin",
 }).lazy(() => import("./routes/signin").then((d) => d.Route));
 
+const signUpRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "signup",
+}).lazy(() => import("./routes/signup").then((d) => d.Route));
+
 const dashboardRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "dashboard",
@@ -19,6 +24,7 @@ const dashboardRoute = createRoute({
 const routeTree = rootRoute.addChildren([
   indexRoute,
   signInRoute,
+  signUpRoute,
   dashboardRoute,
 ]);
 
