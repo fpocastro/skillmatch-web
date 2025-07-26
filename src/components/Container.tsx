@@ -64,7 +64,7 @@ function Navbar({ ...rest }: ContainerNavbarProps) {
         <DropdownMenu.Trigger asChild>
           <button
             type="button"
-            className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600"
+            className="relative inline-flex items-center justify-center w-10 h-10 cursor-pointer overflow-hidden bg-gray-100 rounded-full dark:bg-gray-400"
             aria-label="Open menu"
           >
             {user?.firstName[0]}
@@ -73,34 +73,38 @@ function Navbar({ ...rest }: ContainerNavbarProps) {
         </DropdownMenu.Trigger>
         <DropdownMenu.Portal>
           <DropdownMenu.Content
-            className="min-w-56 bg-white p-1 rounded-md shadow-md duration-300 ease-[cubic-bezier(0.16, 1, 0.3, 1)] will-change-[transform, opacity]"
-            align="start"
-            sideOffset={5}
-            alignOffset={-3}
+            className="min-w-48 bg-white rounded-lg shadow-lg border border-gray-200 p-2 animate-in fade-in-0 zoom-in-95"
+            align="end"
+            sideOffset={8}
           >
-            <DropdownMenu.Item>
+            <DropdownMenu.Item asChild>
               <Link
                 to="/profile"
-                className="text-md text-green-300 hover:text-black rounded-sm flex items-center h-6 pr-1 pl-6 py-2 relative select-none outline-none hover:bg-green-400"
+                className="flex items-center px-3 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-100 hover:text-gray-900 transition-colors"
+                aria-label="Profile"
               >
                 Profile
               </Link>
             </DropdownMenu.Item>
-            <DropdownMenu.Item>
+            <DropdownMenu.Item asChild>
               <Link
                 to="/settings"
-                className="text-md text-green-300 hover:text-black rounded-sm flex items-center h-6 pr-1 relative pl-6 select-none outline-none hover:bg-green-400"
+                className="flex items-center px-3 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-100 hover:text-gray-900 transition-colors"
+                aria-label="Settings"
               >
                 Settings
               </Link>
             </DropdownMenu.Item>
-            <DropdownMenu.Separator className="h-px bg-green-800 m-1" />
-            <DropdownMenu.Item
-              className="text-md text-green-300 hover:text-black rounded-sm flex items-center h-6 pr-1 relative pl-6 select-none outline-none hover:bg-green-400"
-              disabled={!isLogoutPending}
-              onClick={signOut}
-            >
-              Sign Out
+            <DropdownMenu.Separator className="h-px bg-gray-200 my-1" />
+            <DropdownMenu.Item>
+              <button
+                type="button"
+                className="flex w-full items-center px-3 py-2 text-sm text-red-600 rounded-md hover:bg-red-50 cursor-pointer hover:text-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isLogoutPending}
+                onClick={signOut}
+              >
+                Sign Out
+              </button>
             </DropdownMenu.Item>
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
@@ -115,7 +119,11 @@ function Navbar({ ...rest }: ContainerNavbarProps) {
     >
       <div className="max-w-screen-xl flex flex-1 flex-wrap items-center justify-between mx-auto p-4">
         <div className="flex items-center space-x-8">
-          <Link to="/" className="text-2xl font-bold text-green-600">
+          <Link
+            to="/"
+            className="text-2xl font-bold text-green-600"
+            aria-label="Home page"
+          >
             SkillMatch
           </Link>
         </div>
@@ -124,6 +132,7 @@ function Navbar({ ...rest }: ContainerNavbarProps) {
             <Link
               to="/places"
               className="text-gray-700 hover:text-green-600 font-medium transition-colors"
+              aria-label="Places"
             >
               Places
             </Link>
@@ -131,6 +140,7 @@ function Navbar({ ...rest }: ContainerNavbarProps) {
               <Link
                 to="/dashboard"
                 className="text-gray-700 hover:text-green-600 font-medium transition-colors"
+                aria-label="Dashboard"
               >
                 Dashboard
               </Link>
