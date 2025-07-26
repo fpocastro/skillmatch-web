@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Suspense } from "react";
+import { Spinner } from "../components/Spinner";
+import { Container } from "../layouts/Container";
 
 export const rootRoute = createRootRoute({
   component: RootComponent,
@@ -20,9 +22,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <Suspense
         fallback={
-          <div className="min-h-screen flex items-center justify-center">
-            Loading...
-          </div>
+          <Container.Root>
+            <Container.Content className="justify-center">
+              <Spinner className="text-green-500" />
+            </Container.Content>
+          </Container.Root>
         }
       >
         <Outlet />
