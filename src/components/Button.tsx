@@ -1,9 +1,9 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: <polymorphic element> */
-import type { ComponentPropsWithoutRef, ReactElement, ReactNode } from "react";
+import type { ComponentPropsWithRef, ReactElement, ReactNode } from "react";
 import { cloneElement, isValidElement } from "react";
 import { Spinner } from "./Spinner";
 
-interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
+interface ButtonProps extends ComponentPropsWithRef<"button"> {
   children: ReactNode;
   loading?: boolean;
   asChild?: boolean;
