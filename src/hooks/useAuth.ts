@@ -1,7 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
 import { fetchAuthSession } from "aws-amplify/auth";
-import { authService, type SignInCredentials, type SignUpCredentials } from "../services/authService";
+import {
+  authService,
+  type SignInCredentials,
+  type SignUpCredentials,
+} from "../services/authService";
 
 const AUTH_QUERY_KEY = ["auth", "user"];
 
