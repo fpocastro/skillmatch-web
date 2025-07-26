@@ -21,11 +21,17 @@ const dashboardRoute = createRoute({
   path: "dashboard",
 }).lazy(() => import("./routes/dashboard").then((d) => d.Route));
 
+const placesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "places",
+}).lazy(() => import("./routes/places").then((d) => d.Route));
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   signInRoute,
   signUpRoute,
   dashboardRoute,
+  placesRoute,
 ]);
 
 export const router = createRouter({ routeTree });

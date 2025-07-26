@@ -1,5 +1,5 @@
+import { Container } from "../components/Container";
 import { useAuth } from "../hooks/useAuth";
-import { Container } from "../layouts/Container";
 
 export default function DashboardPage() {
   const { user } = useAuth();

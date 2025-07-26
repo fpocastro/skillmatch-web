@@ -1,6 +1,6 @@
 import { Navigate } from "@tanstack/react-router";
 import { useAuth } from "../hooks/useAuth";
-import { Container } from "../layouts/Container";
+import { Container } from "./Container";
 import { Spinner } from "./Spinner";
 
 interface ProtectedRouteProps {

@@ -1,7 +1,7 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Link } from "@tanstack/react-router";
-import { Button } from "../components/Button";
 import { useAuth } from "../hooks/useAuth";
+import { Button } from "./Button";
 
 interface ContainerRootProps extends React.ComponentProps<"div"> {
   children: React.ReactNode;
@@ -17,13 +17,13 @@ function Root({ children, ...rest }: ContainerRootProps) {
 
 interface ContainerContentProps extends React.ComponentProps<"div"> {
   children: React.ReactNode;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl" | "full";
   className?: string;
 }
 
 function Content({
   children,
-  size = "md",
+  size = "lg",
   className = "",
   ...rest
 }: ContainerContentProps) {
@@ -31,11 +31,13 @@ function Content({
     sm: "max-w-2xl",
     md: "max-w-4xl",
     lg: "max-w-6xl",
+    xl: "max-w-8xl",
+    full: "max-w-full",
   };
 
   return (
     <div
-      className={`flex flex-col flex-1 mx-auto px-4 ${sizeClasses[size]} ${className}`}
+      className={`flex flex-col flex-1 mx-auto px-4 pb-4 ${sizeClasses[size]} ${className}`}
       {...rest}
     >
       {children}
@@ -112,14 +114,34 @@ function Navbar({ ...rest }: ContainerNavbarProps) {
       {...rest}
     >
       <div className="max-w-screen-xl flex flex-1 flex-wrap items-center justify-between mx-auto p-4">
-        <div className="flex items-center">
-          <h1 className="text-2xl font-bold text-green-600">SkillMatch</h1>
+        <div className="flex items-center space-x-8">
+          <Link to="/" className="text-2xl font-bold text-green-600">
+            SkillMatch
+          </Link>
         </div>
-        {isAuthenticated ? (
-          <AuthenticatedControls />
-        ) : (
-          <UnauthenticatedControls />
-        )}
+        <div className="flex items-center space-x-4">
+          <div className="flex space-x-6">
+            <Link
+              to="/places"
+              className="text-gray-700 hover:text-green-600 font-medium transition-colors"
+            >
+              Places
+            </Link>
+            {isAuthenticated && (
+              <Link
+                to="/dashboard"
+                className="text-gray-700 hover:text-green-600 font-medium transition-colors"
+              >
+                Dashboard
+              </Link>
+            )}
+          </div>
+          {isAuthenticated ? (
+            <AuthenticatedControls />
+          ) : (
+            <UnauthenticatedControls />
+          )}
+        </div>
       </div>
     </nav>
   );

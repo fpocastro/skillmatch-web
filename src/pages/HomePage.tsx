@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "../components/Button";
+import { Container } from "../components/Container";
 import { useAuth } from "../hooks/useAuth";
-import { Container } from "../layouts/Container";
 
 export default function HomePage() {
   const { isAuthenticated } = useAuth();

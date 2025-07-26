@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Suspense } from "react";
+import { Container } from "../components/Container";
 import { Spinner } from "../components/Spinner";
-import { Container } from "../layouts/Container";
 
 export const rootRoute = createRootRoute({
   component: RootComponent,
