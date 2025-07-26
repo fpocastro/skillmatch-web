@@ -39,101 +39,102 @@ export default function SignInPage() {
   return (
     <Container.Root>
       <Container.Content className="justify-center">
-        <div className="max-w-md w-full space-y-8">
-          <div>
-            <h1 className="text-3xl text-center font-bold text-green-600">
-              SkillMatch
-            </h1>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Sign in to your account
-            </h2>
-          </div>
+        <div>
+          <h1 className="text-3xl text-center font-bold text-green-600">
+            SkillMatch
+          </h1>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Sign in to your account
+          </h2>
+        </div>
 
-          <form
-            className="mt-8 space-y-6"
-            onSubmit={(e) => {
-              e.preventDefault();
-              form.handleSubmit();
-            }}
-          >
-            <div className="space-y-4">
-              <form.Field name="email">
-                {(field) => (
-                  <Field.Root
-                    id="email"
+        <form
+          className="mt-8 space-y-6"
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}
+        >
+          <div className="space-y-4">
+            <form.Field name="email">
+              {(field) => (
+                <Field.Root
+                  id="email"
+                  invalid={!field.state.meta.isValid}
+                  disabled={isSignInPending}
+                >
+                  <Field.Label>Email address</Field.Label>
+                  <Field.Input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                  <Field.ErrorMessage>
+                    {field.state.meta.errors[0]?.message}
+                  </Field.ErrorMessage>
+                </Field.Root>
+              )}
+            </form.Field>
+
+            <form.Field name="password">
+              {(field) => (
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Password
+                  </label>
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={field.state.value}
                     invalid={!field.state.meta.isValid}
                     disabled={isSignInPending}
-                  >
-                    <Field.Label>Email address</Field.Label>
-                    <Field.Input
-                      type="email"
-                      placeholder="Enter your email"
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                    <Field.ErrorMessage>
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                    placeholder="Enter your password"
+                  />
+                  {!field.state.meta.isValid && (
+                    <p className="text-red-600 text-sm">
                       {field.state.meta.errors[0]?.message}
-                    </Field.ErrorMessage>
-                  </Field.Root>
-                )}
-              </form.Field>
+                    </p>
+                  )}
+                </div>
+              )}
+            </form.Field>
+          </div>
 
-              <form.Field name="password">
-                {(field) => (
-                  <div>
-                    <label
-                      htmlFor="password"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Password
-                    </label>
-                    <Input
-                      id="password"
-                      name="password"
-                      type="password"
-                      value={field.state.value}
-                      invalid={!field.state.meta.isValid}
-                      disabled={isSignInPending}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                      placeholder="Enter your password"
-                    />
-                    {!field.state.meta.isValid && (
-                      <p className="text-red-600 text-sm">
-                        {field.state.meta.errors[0]?.message}
-                      </p>
-                    )}
-                  </div>
-                )}
-              </form.Field>
+          <div>
+            <Button
+              type="submit"
+              disabled={isSignInPending || !form.state.canSubmit}
+              loading={isSignInPending}
+              className="w-full"
+            >
+              Sign in
+            </Button>
+          </div>
+
+          {signInError && (
+            <div className="text-red-600 text-sm text-center">
+              {signInError.message || "Sign in failed"}
             </div>
+          )}
 
+          <div className="text-center space-y-4">
             <div>
-              <Button
-                type="submit"
-                disabled={isSignInPending || !form.state.canSubmit}
-                loading={isSignInPending}
-                className="w-full"
-              >
-                Sign in
-              </Button>
-            </div>
-
-            {signInError && (
-              <div className="text-red-600 text-sm text-center">
-                {signInError.message || "Sign in failed"}
-              </div>
-            )}
-
-            <div className="text-center space-y-2">
               <Link
                 to="/signup"
                 className="text-green-600 hover:text-green-500 text-sm"
               >
                 Don't have an account? Sign up
               </Link>
-              <br />
+            </div>
+            <div>
               <Link
                 to="/"
                 className="text-green-600 hover:text-green-500 text-sm"
@@ -141,8 +142,8 @@ export default function SignInPage() {
                 ← Back to home
               </Link>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </Container.Content>
     </Container.Root>
   );

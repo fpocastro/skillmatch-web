@@ -43,145 +43,146 @@ export default function SignUpPage() {
   return (
     <Container.Root>
       <Container.Content className="justify-center">
-        <div className="max-w-md w-full space-y-8">
-          <div>
-            <h1 className="text-3xl text-center font-bold text-green-600">
-              SkillMatch
-            </h1>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Create your account
-            </h2>
+        <div>
+          <h1 className="text-3xl text-center font-bold text-green-600">
+            SkillMatch
+          </h1>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Create your account
+          </h2>
+        </div>
+
+        <form
+          className="mt-8 space-y-6"
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}
+        >
+          <div className="space-y-4">
+            <form.Field name="firstName">
+              {(field) => (
+                <Field.Root
+                  id="firstName"
+                  invalid={!field.state.meta.isValid}
+                  disabled={isSignUpPending}
+                >
+                  <Field.Label>First Name</Field.Label>
+                  <Field.Input
+                    type="text"
+                    placeholder="Enter your first name"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                  <Field.ErrorMessage>
+                    {field.state.meta.errors[0]?.message}
+                  </Field.ErrorMessage>
+                </Field.Root>
+              )}
+            </form.Field>
+
+            <form.Field name="lastName">
+              {(field) => (
+                <Field.Root
+                  id="lastName"
+                  invalid={!field.state.meta.isValid}
+                  disabled={isSignUpPending}
+                >
+                  <Field.Label>Last Name</Field.Label>
+                  <Field.Input
+                    type="text"
+                    placeholder="Enter your last name"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                  <Field.ErrorMessage>
+                    {field.state.meta.errors[0]?.message}
+                  </Field.ErrorMessage>
+                </Field.Root>
+              )}
+            </form.Field>
+
+            <form.Field name="email">
+              {(field) => (
+                <Field.Root
+                  id="email"
+                  invalid={!field.state.meta.isValid}
+                  disabled={isSignUpPending}
+                >
+                  <Field.Label>Email address</Field.Label>
+                  <Field.Input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                  <Field.ErrorMessage>
+                    {field.state.meta.errors[0]?.message}
+                  </Field.ErrorMessage>
+                </Field.Root>
+              )}
+            </form.Field>
+
+            <form.Field name="password">
+              {(field) => (
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Password
+                  </label>
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={field.state.value}
+                    invalid={!field.state.meta.isValid}
+                    disabled={isSignUpPending}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                    placeholder="Enter your password"
+                  />
+                  {!field.state.meta.isValid && (
+                    <p className="text-red-600 text-sm">
+                      {field.state.meta.errors[0]?.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            </form.Field>
           </div>
 
-          <form
-            className="mt-8 space-y-6"
-            onSubmit={(e) => {
-              e.preventDefault();
-              form.handleSubmit();
-            }}
-          >
-            <div className="space-y-4">
-              <form.Field name="firstName">
-                {(field) => (
-                  <Field.Root
-                    id="firstName"
-                    invalid={!field.state.meta.isValid}
-                    disabled={isSignUpPending}
-                  >
-                    <Field.Label>First Name</Field.Label>
-                    <Field.Input
-                      type="text"
-                      placeholder="Enter your first name"
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                    <Field.ErrorMessage>
-                      {field.state.meta.errors[0]?.message}
-                    </Field.ErrorMessage>
-                  </Field.Root>
-                )}
-              </form.Field>
+          <div>
+            <Button
+              type="submit"
+              disabled={isSignUpPending || !form.state.canSubmit}
+              loading={isSignUpPending}
+              className="w-full"
+            >
+              Sign up
+            </Button>
+          </div>
 
-              <form.Field name="lastName">
-                {(field) => (
-                  <Field.Root
-                    id="lastName"
-                    invalid={!field.state.meta.isValid}
-                    disabled={isSignUpPending}
-                  >
-                    <Field.Label>Last Name</Field.Label>
-                    <Field.Input
-                      type="text"
-                      placeholder="Enter your last name"
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                    <Field.ErrorMessage>
-                      {field.state.meta.errors[0]?.message}
-                    </Field.ErrorMessage>
-                  </Field.Root>
-                )}
-              </form.Field>
-
-              <form.Field name="email">
-                {(field) => (
-                  <Field.Root
-                    id="email"
-                    invalid={!field.state.meta.isValid}
-                    disabled={isSignUpPending}
-                  >
-                    <Field.Label>Email address</Field.Label>
-                    <Field.Input
-                      type="email"
-                      placeholder="Enter your email"
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                    <Field.ErrorMessage>
-                      {field.state.meta.errors[0]?.message}
-                    </Field.ErrorMessage>
-                  </Field.Root>
-                )}
-              </form.Field>
-
-              <form.Field name="password">
-                {(field) => (
-                  <div>
-                    <label
-                      htmlFor="password"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Password
-                    </label>
-                    <Input
-                      id="password"
-                      name="password"
-                      type="password"
-                      value={field.state.value}
-                      invalid={!field.state.meta.isValid}
-                      disabled={isSignUpPending}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                      placeholder="Enter your password"
-                    />
-                    {!field.state.meta.isValid && (
-                      <p className="text-red-600 text-sm">
-                        {field.state.meta.errors[0]?.message}
-                      </p>
-                    )}
-                  </div>
-                )}
-              </form.Field>
+          {signUpError && (
+            <div className="text-red-600 text-sm text-center">
+              {signUpError.message || "Sign up failed"}
             </div>
+          )}
 
+          <div className="text-center space-y-4">
             <div>
-              <Button
-                type="submit"
-                disabled={isSignUpPending || !form.state.canSubmit}
-                loading={isSignUpPending}
-                className="w-full"
-              >
-                Sign up
-              </Button>
-            </div>
-
-            {signUpError && (
-              <div className="text-red-600 text-sm text-center">
-                {signUpError.message || "Sign up failed"}
-              </div>
-            )}
-
-            <div className="text-center space-y-2">
               <Link
                 to="/signin"
                 className="text-green-600 hover:text-green-500 text-sm"
               >
                 Already have an account? Sign in
               </Link>
-              <br />
+            </div>
+            <div>
               <Link
                 to="/"
                 className="text-green-600 hover:text-green-500 text-sm"
@@ -189,8 +190,8 @@ export default function SignUpPage() {
                 ← Back to home
               </Link>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </Container.Content>
     </Container.Root>
   );
