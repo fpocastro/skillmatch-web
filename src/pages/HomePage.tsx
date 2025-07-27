@@ -1,10 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
+import { Skeleton } from "../components/Skeleton";
 import { useAuth } from "../hooks/useAuth";
 
 export default function HomePage() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
   return (
     <Container.Root>
       <Container.Navbar />
@@ -20,12 +21,16 @@ export default function HomePage() {
                 Connect with players of your skill level, organize matches, and
                 enjoy the beautiful game with like-minded soccer enthusiasts.
               </p>
-              <div className="mt-10">
-                <Button asChild>
-                  <Link to={isAuthenticated ? "/dashboard" : "/signin"}>
-                    {isAuthenticated ? "Go to Dashboard" : "Get Started"}
-                  </Link>
-                </Button>
+              <div className="flex justify-center mt-10">
+                {isLoading ? (
+                  <Skeleton className="h-10 w-28" />
+                ) : (
+                  <Button asChild>
+                    <Link to={isAuthenticated ? "/dashboard" : "/signin"}>
+                      {isAuthenticated ? "Go to Dashboard" : "Get Started"}
+                    </Link>
+                  </Button>
+                )}
               </div>
             </div>
           </main>

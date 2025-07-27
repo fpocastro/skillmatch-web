@@ -1,5 +1,6 @@
 import type { Place } from "../services/placesService";
 import { Badge } from "./Badge";
+import { Skeleton } from "./Skeleton";
 
 interface PlaceCardProps {
   place: Place;
@@ -28,6 +29,22 @@ export function PlaceCard({ place }: PlaceCardProps) {
         <Badge color={place.isActive ? "green" : "red"}>
           {place.isActive ? "Active" : "Inactive"}
         </Badge>
+      </div>
+    </div>
+  );
+}
+
+export function PlaceCardSkeleton() {
+  return (
+    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="h-48">
+        <Skeleton form="free" className="w-full h-full" />
+      </div>
+      <div className="p-4">
+        <Skeleton className="h-6 w-32 mb-2" />
+        <Skeleton className="h-5 w-full mb-0.5" />
+        <Skeleton className="h-5 w-full mb-2" />
+        <Skeleton className="h-4 w-40 mb-2" />
       </div>
     </div>
   );

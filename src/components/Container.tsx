@@ -2,6 +2,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Link } from "@tanstack/react-router";
 import { useAuth } from "../hooks/useAuth";
 import { Button } from "./Button";
+import { Skeleton } from "./Skeleton";
 
 interface ContainerRootProps extends React.ComponentProps<"div"> {
   children: React.ReactNode;
@@ -48,7 +49,8 @@ function Content({
 interface ContainerNavbarProps extends React.ComponentProps<"nav"> {}
 
 function Navbar({ ...rest }: ContainerNavbarProps) {
-  const { isAuthenticated, user, signOut, isLogoutPending } = useAuth();
+  const { isAuthenticated, user, signOut, isLogoutPending, isLoading } =
+    useAuth();
 
   function UnauthenticatedControls() {
     return (
@@ -129,14 +131,20 @@ function Navbar({ ...rest }: ContainerNavbarProps) {
         </div>
         <div className="flex items-center space-x-4">
           <div className="flex space-x-6">
-            <Link
-              to="/places"
-              className="text-gray-700 hover:text-green-600 font-medium transition-colors"
-              aria-label="Places"
-            >
-              Places
-            </Link>
-            {isAuthenticated && (
+            {isLoading ? (
+              <Skeleton className="h-5 w-20" />
+            ) : (
+              <Link
+                to="/places"
+                className="text-gray-700 hover:text-green-600 font-medium transition-colors"
+                aria-label="Places"
+              >
+                Places
+              </Link>
+            )}
+            {isLoading ? (
+              <Skeleton className="h-5 w-20" />
+            ) : (
               <Link
                 to="/dashboard"
                 className="text-gray-700 hover:text-green-600 font-medium transition-colors"
@@ -146,7 +154,9 @@ function Navbar({ ...rest }: ContainerNavbarProps) {
               </Link>
             )}
           </div>
-          {isAuthenticated ? (
+          {isLoading ? (
+            <Skeleton form="circle" className="h-10 w-10" />
+          ) : isAuthenticated ? (
             <AuthenticatedControls />
           ) : (
             <UnauthenticatedControls />

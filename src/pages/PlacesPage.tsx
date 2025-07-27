@@ -1,8 +1,7 @@
-import type { ReactNode } from "react";
+import { useMemo } from "react";
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
-import { PlaceCard } from "../components/PlaceCard";
-import { Spinner } from "../components/Spinner";
+import { PlaceCard, PlaceCardSkeleton } from "../components/PlaceCard";
 import { usePlace } from "../hooks/usePlace";
 import type { Place } from "../services/placesService";
 
@@ -10,19 +9,25 @@ interface PlacesStateWrapperProps {
   loading: boolean;
   error: string | null;
   places: Place[];
-  children: ReactNode;
 }
 
 function PlacesStateWrapper({
   loading,
   error,
   places,
-  children,
 }: PlacesStateWrapperProps) {
+  const items = useMemo(
+    () =>
+      Array.from({ length: 2 }, (_, i) => (
+        <PlaceCardSkeleton key={i.toString()} />
+      )),
+    []
+  );
+
   if (loading) {
     return (
-      <div className="flex justify-center mt-4">
-        <Spinner className="text-green-500" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+        {items}
       </div>
     );
   }
@@ -43,7 +48,13 @@ function PlacesStateWrapper({
     );
   }
 
-  return <>{children}</>;
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+      {places.map((place) => (
+        <PlaceCard key={place.id} place={place} />
+      ))}
+    </div>
+  );
 }
 
 export default function PlacesPage() {
@@ -60,13 +71,7 @@ export default function PlacesPage() {
           </p>
         </div>
 
-        <PlacesStateWrapper loading={loading} error={error} places={places}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-            {places.map((place) => (
-              <PlaceCard key={place.id} place={place} />
-            ))}
-          </div>
-        </PlacesStateWrapper>
+        <PlacesStateWrapper loading={loading} error={error} places={places} />
 
         {(page > 1 || hasNextPage) && (
           <div className="flex justify-center items-center space-x-4">
