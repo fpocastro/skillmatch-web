@@ -6,6 +6,30 @@ import { useAuth } from "../hooks/useAuth";
 
 export default function HomePage() {
   const { isAuthenticated, isLoading } = useAuth();
+  const features = [
+    {
+      id: 1,
+      icon: "⚽",
+      title: "Skill Matching",
+      description:
+        "Find players that match your skill level for balanced and fun games.",
+    },
+    {
+      id: 2,
+      icon: "📍",
+      title: "Local Games",
+      description:
+        "Discover matches and players in your area for convenient meetups.",
+    },
+    {
+      id: 3,
+      icon: "👥",
+      title: "Community",
+      description:
+        "Join a vibrant community of soccer players and make new friends.",
+    },
+  ];
+
   return (
     <Container.Root>
       <Container.Navbar />
@@ -37,42 +61,19 @@ export default function HomePage() {
           <section className="py-16 ">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <span className="text-green-600 text-xl">⚽</span>
+                {features.map((feature) => (
+                  <div key={feature.id} className="text-center">
+                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                      <span className="text-green-600 text-xl">
+                        {feature.icon}
+                      </span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 mt-2">{feature.description}</p>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    Skill Matching
-                  </h3>
-                  <p className="text-gray-600 mt-2">
-                    Find players that match your skill level for balanced and
-                    fun games.
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <span className="text-green-600 text-xl">📍</span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    Local Games
-                  </h3>
-                  <p className="text-gray-600 mt-2">
-                    Discover matches and players in your area for convenient
-                    meetups.
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <span className="text-green-600 text-xl">👥</span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    Community
-                  </h3>
-                  <p className="text-gray-600 mt-2">
-                    Join a vibrant community of soccer players and make new
-                    friends.
-                  </p>
-                </div>
+                ))}
               </div>
             </div>
           </section>
