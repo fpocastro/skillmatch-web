@@ -13,7 +13,7 @@ export function PlaceCard({ place }: PlaceCardProps) {
         <img
           src="https://placehold.co/400x300/22c55e/ffffff/png?text=Soccer+Field"
           alt={`Field view of ${place.name}`}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover pointer-events-none"
         />
       </div>
       <div className="p-4">
