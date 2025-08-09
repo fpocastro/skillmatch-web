@@ -1,6 +1,7 @@
-import { Link, useParams } from "@tanstack/react-router";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { Link, useParams } from "@tanstack/react-router";
 import { Container } from "../components/Container";
+import { IconButton } from "../components/IconButton";
 import { Spinner } from "../components/Spinner";
 import { usePlace } from "../hooks/usePlace";
 
@@ -67,14 +68,21 @@ export function PlacePage() {
           <Link to="/places" className="text-green-600 hover:underline text-sm">
             ← Back to Places
           </Link>
-          
           <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
-              <button className="p-2 hover:bg-gray-100 rounded-md transition-colors">
-                <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-                </svg>
-              </button>
+              <IconButton
+                className="bg-transparent hover:bg-gray-100"
+                icon={
+                  <svg
+                    className="w-5 h-5 text-gray-600"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <title>Options</title>
+                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                  </svg>
+                }
+              />
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>
               <DropdownMenu.Content className="min-w-32 bg-white rounded-lg shadow-lg border border-gray-200 p-2">
@@ -100,11 +108,13 @@ export function PlacePage() {
         <div className="mb-6">
           <div className="flex items-start justify-between mb-4">
             <h1 className="text-4xl font-bold text-gray-900">{place.name}</h1>
-            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-              place.isActive 
-                ? "bg-green-100 text-green-800" 
-                : "bg-red-100 text-red-800"
-            }`}>
+            <span
+              className={`px-3 py-1 rounded-full text-sm font-medium ${
+                place.isActive
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              }`}
+            >
               {place.isActive ? "Active" : "Inactive"}
             </span>
           </div>
@@ -113,26 +123,40 @@ export function PlacePage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-3">Description</h2>
-              <p className="text-gray-700 leading-relaxed">{place.description}</p>
+              <h2 className="text-xl font-semibold text-gray-900 mb-3">
+                Description
+              </h2>
+              <p className="text-gray-700 leading-relaxed">
+                {place.description}
+              </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-3">Address</h2>
+              <h2 className="text-xl font-semibold text-gray-900 mb-3">
+                Address
+              </h2>
               <p className="text-gray-700">{place.address}</p>
             </div>
           </div>
 
           <div className="bg-gray-50 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Details</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Details
+            </h3>
             <div className="space-y-3">
               <div>
                 <span className="text-sm text-gray-500 block">Created</span>
-                <p className="text-gray-900">{new Date(place.createdAt).toLocaleDateString()}</p>
+                <p className="text-gray-900">
+                  {new Date(place.createdAt).toLocaleDateString()}
+                </p>
               </div>
               <div>
-                <span className="text-sm text-gray-500 block">Last Updated</span>
-                <p className="text-gray-900">{new Date(place.updatedAt).toLocaleDateString()}</p>
+                <span className="text-sm text-gray-500 block">
+                  Last Updated
+                </span>
+                <p className="text-gray-900">
+                  {new Date(place.updatedAt).toLocaleDateString()}
+                </p>
               </div>
             </div>
           </div>
