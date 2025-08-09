@@ -145,13 +145,15 @@ function Navbar({ ...rest }: ContainerNavbarProps) {
             {isLoading ? (
               <Skeleton className="h-5 w-20" />
             ) : (
-              <Link
-                to="/dashboard"
-                className="text-gray-700 hover:text-green-600 font-medium transition-colors"
-                aria-label="Dashboard"
-              >
-                Dashboard
-              </Link>
+              isAuthenticated && (
+                <Link
+                  to="/dashboard"
+                  className="text-gray-700 hover:text-green-600 font-medium transition-colors"
+                  aria-label="Dashboard"
+                >
+                  Dashboard
+                </Link>
+              )
             )}
           </div>
           {isLoading ? (
