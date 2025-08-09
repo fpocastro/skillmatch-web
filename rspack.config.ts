@@ -16,6 +16,9 @@ export default defineConfig({
     port: 8080,
     historyApiFallback: true,
   },
+  output: {
+    publicPath: "/",
+  },
   entry: {
     main: "./src/main.tsx",
   },
