@@ -22,8 +22,9 @@ export function IconButton({
 }: IconButtonProps) {
   const commonClasses = `
     relative inline-flex h-10 w-10 items-center justify-center border border-transparent
-    text-sm font-medium rounded-sm text-white cursor-pointer
+    text-sm font-medium rounded-sm text-white bg-green-600 cursor-pointer
     transition-all duration-200
+    hover:bg-green-700
     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500
     disabled:opacity-50 disabled:cursor-not-allowed
     ${className}

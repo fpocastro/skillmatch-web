@@ -18,27 +18,29 @@ function Root({ children, ...rest }: ContainerRootProps) {
 
 interface ContainerContentProps extends React.ComponentProps<"div"> {
   children: React.ReactNode;
-  size?: "sm" | "md" | "lg" | "xl" | "full";
+  size?: "md" | "lg" | "xl" | "2xl" | "4xl" | "6xl" | "8xl" | "full";
   className?: string;
 }
 
 function Content({
   children,
-  size = "lg",
+  size = "6xl",
   className = "",
   ...rest
 }: ContainerContentProps) {
   const sizeClasses = {
-    sm: "max-w-2xl",
-    md: "max-w-4xl",
-    lg: "max-w-6xl",
-    xl: "max-w-8xl",
+    md: "max-w-md",
+    xl: "max-w-xl",
+    "2xl": "max-w-2xl",
+    "4xl": "max-w-4xl",
+    "6xl": "max-w-6xl",
+    "8xl": "max-w-8xl",
     full: "max-w-full",
   };
 
   return (
     <div
-      className={`flex flex-col flex-1 mx-auto px-4 pb-4 ${sizeClasses[size]} ${className}`}
+      className={`flex-1 w-full mx-auto px-4 pb-4 ${sizeClasses[size]} ${className}`}
       {...rest}
     >
       {children}

@@ -18,6 +18,7 @@
     "@tanstack/react-router-devtools": "^1.127.9",
     "aws-amplify": "^6.15.3",
     "clsx": "^2.1.1",
+    "lucide-react": "^0.539.0",
     "postcss": "^8.5.6",
     "postcss-loader": "^8.1.1",
     "react": "^19.1.0",

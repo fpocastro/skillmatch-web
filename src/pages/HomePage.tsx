@@ -33,7 +33,7 @@ export default function HomePage() {
   return (
     <Container.Root>
       <Container.Navbar />
-      <Container.Content>
+      <Container.Content className="flex flex-col items-center">
         <div className="flex flex-col flex-1">
           <main className="flex-1 flex items-center justify-center">
             <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
