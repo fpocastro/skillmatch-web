@@ -1,23 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import { placesService } from "../services/placesService";
 
-export function usePlace() {
-  const [page, setPage] = useState(1);
-
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["places", page],
-    queryFn: () => placesService.getPlaces(page),
+export function usePlace(id: string) {
+  const placeQuery = useQuery({
+    queryKey: ["place", id],
+    queryFn: () => placesService.getPlace(id),
     staleTime: 1000 * 60 * 5,
   });
 
   return {
-    places: data?.data || [],
-    loading: isLoading,
-    error: error?.message || null,
-    page,
-    hasNextPage: data?.hasNextPage || false,
-    setPage,
-    refetch,
+    place: placeQuery.data,
+    loading: placeQuery.isLoading,
+    error: placeQuery.error?.message || null,
+    refetch: placeQuery.refetch,
   };
 }

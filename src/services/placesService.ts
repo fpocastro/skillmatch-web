@@ -15,7 +15,14 @@ export interface PlacesResponse {
   hasNextPage: boolean;
 }
 
-export const placesService = {
-  getPlaces: (page: number = 1): Promise<PlacesResponse> =>
-    api.get<PlacesResponse>(`/places?page=${page}`),
-};
+class PlacesService {
+  async getPlaces(page: number = 1): Promise<PlacesResponse> {
+    return api.get<PlacesResponse>(`/places?page=${page}`);
+  }
+
+  async getPlace(id: Place["id"]): Promise<Place> {
+    return api.get<Place>(`/places/${id}`);
+  }
+}
+
+export const placesService = new PlacesService();

@@ -26,12 +26,18 @@ const placesRoute = createRoute({
   path: "places",
 }).lazy(() => import("./routes/places").then((d) => d.Route));
 
+const placeRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "places/$id",
+}).lazy(() => import("./routes/places.$id").then((d) => d.Route));
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   signInRoute,
   signUpRoute,
   dashboardRoute,
   placesRoute,
+  placeRoute,
 ]);
 
 export const router = createRouter({ routeTree });

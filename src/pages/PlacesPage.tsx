@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
 import { PlaceCard, PlaceCardSkeleton } from "../components/PlaceCard";
-import { usePlace } from "../hooks/usePlace";
+import { usePlaces } from "../hooks/usePlaces";
 import type { Place } from "../services/placesService";
 
 interface PlacesStateWrapperProps {
@@ -58,7 +58,7 @@ function PlacesStateWrapper({
 }
 
 export default function PlacesPage() {
-  const { places, loading, error, page, hasNextPage, setPage } = usePlace();
+  const { places, loading, error, page, hasNextPage, setPage } = usePlaces();
 
   return (
     <Container.Root>
